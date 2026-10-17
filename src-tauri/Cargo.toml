@@ -1,0 +1,48 @@
+[package]
+name = "arima-player"
+version = "1.0.0"
+description = "Arima Player — тихий, точный, смертельно эффективный"
+authors = ["Arima"]
+edition = "2021"
+rust-version = "1.90"
+
+[lib]
+# The Tauri 2 mobile-ready layout: a lib crate plus a thin binary.
+name = "arima_player_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[features]
+# DO NOT REMOVE. tauri's build script computes `dev = !custom_protocol`, and
+# tauri-codegen embeds an EMPTY asset set when `dev` is true. Without this
+# feature a release binary silently expects the dev server on :1420 and shows a
+# blank white window. `tauri build` enables it; so does an explicit
+# `cargo build --release --features custom-protocol`.
+custom-protocol = ["tauri/custom-protocol"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.3", features = [] }
+
+[dependencies]
+# `tray-icon` is required for TrayIconBuilder/TrayIconEvent. It is auto-enabled
+# only when `app.trayIcon` is declared in tauri.conf.json, which we deliberately
+# do not do — the tray is built in Rust so it can own the playback menu.
+tauri = { version = "2.12.4", features = ["tray-icon"] }
+tauri-plugin-global-shortcut = "2.4.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rodio = "0.23.0"
+lofty = "0.25.4"
+tauri-plugin-dialog = "2.8.3"
+base64 = "0.23.1"
+image = { version = "0.25.10", default-features = false, features = ["jpeg", "png", "webp", "gif", "bmp"] }
+window-vibrancy = "0.8.1"
+biquad = "0.6.0"
+rustfft = "6.4.1"
+crossbeam-channel = "0.5.17"
+rusqlite = { version = "0.40.2", features = ["bundled"] }
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+opt-level = 3
+strip = true

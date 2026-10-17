@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.tmp/
+*.log
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/*.exe

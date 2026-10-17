@@ -1,0 +1,18 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Core capability for the Arima Player main window. `core:window:default` only covers the read-only queries (is-maximized, is-focused, sizes, monitors); every command that CHANGES the window is opt-in and has to be listed here, which is why the title bar controls and the drag handler each need their own entry. Global shortcuts are registered from Rust only, so the global-shortcut plugin grants no permissions here.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:window:allow-set-focus",
+    "core:window:allow-unminimize",
+    "core:window:allow-start-dragging",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "dialog:allow-open"
+  ]
+}
